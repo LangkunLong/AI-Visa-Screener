@@ -1,0 +1,4 @@
+text,labels
+"works at IBM .","B-PER I-PER O O B-ORG O"
+"researcher at Google .","B-PER I-PER O O O O B-ORG O"
+won the best researcher award .","B-PER I-PER I-PER O O B-AWARD I-AWARD I-AWARD O"

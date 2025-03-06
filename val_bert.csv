@@ -1,0 +1,3 @@
+text,labels
+"professor at MIT .","B-PER I-PER O O B-ORG O"
+"Outstanding Achievement Prize .","B-PER I-PER O O B-AWARD I-AWARD I-AWARD O"

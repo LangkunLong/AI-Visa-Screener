@@ -1,0 +1,10 @@
+text,labels
+"contributed to original research in renewable energy .","B-PER I-PER O O O O B-ORIG I-ORIG O O"
+"holds an executive position at Apple Inc .","B-PER I-PER O O B-ORG I-ORG O O"
+"featured in media outlets like BBC and CNN .","B-PER I-PER O O O O B-PRESS I-PRESS O O B-PRESS I-PRESS O"
+"served as a judge for the National Science Fair .","B-PER I-PER O O O O B-JUDGE I-JUDGE O O"
+"Michael Green published an article in Nature .","B-PER I-PER O O B-ART I-ART O O B-ORG O"
+"original contributions in biochemistry .","B-PER I-PER O O O O O B-ORIG I-ORIG O O"
+"has a high remuneration package at his company .","B-PER I-PER O O B-HR I-HR O O O"
+"member of the International Association of Art Critics .","B-PER I-PER O O B-MEM I-MEM O O B-MEM I-MEM I-MEM O"
+"received multiple awards including the Pulitzer Prize .","B-PER I-PER O O B-AWARD I-AWARD O O B-AWARD I-AWARD O"
