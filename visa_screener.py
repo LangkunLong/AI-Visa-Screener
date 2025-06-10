@@ -106,7 +106,7 @@ def assess_visa(text: str) -> Tuple[dict, str]:
 @visa_screener.post("/assess")
 async def assess_cv_endpoint(file: UploadFile = File(...)):
     file_bytes = await file.read()
-    text = preprocess(file_bytes, file.filename)
+    text = preprocess(file_bytes)
     evidentiary_items, rating = assess_visa(text)
     return JSONResponse(content={
         "evidentiary_items": evidentiary_items,
