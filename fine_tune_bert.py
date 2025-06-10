@@ -1,6 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForTokenClassification, Trainer, TrainingArguments
 from datasets import load_dataset, Dataset
 import pandas as pd
+import ast
 
 MODEL_NAME = "dbmdz/bert-large-cased-finetuned-conll03-english"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -10,7 +11,7 @@ model = AutoModelForTokenClassification.from_pretrained(MODEL_NAME)
 # from huggingface
 def load_custom_dataset(csv_file):
     df = pd.read_csv(csv_file)
-    df["labels"] = df["labels"].apply(lambda x: x.split())
+    df["labels"] = df["labels"].apply(ast.literal_eval)
     df["text"] = df["text"].apply(lambda x: x.split())
     return Dataset.from_pandas(df)
 
