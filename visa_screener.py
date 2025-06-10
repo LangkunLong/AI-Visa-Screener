@@ -47,37 +47,55 @@ def bert_entities_to_criteria(entities: list) -> dict:
         lower_text = entity_text.lower()
         
         # potential award mentions
-        if label.endswith("MISC") or "award" in lower_text or "prize" in lower_text:
+        award_keywords = ["award", "prize", "honor", "medal", "fellowship"]
+        if label.endswith("MISC") or any(k in lower_text for k in award_keywords):
             criteria["awards"].append(entity_text)
             
         # if the entity is ORG include common membership indicators
-        if label.endswith("ORG") and ("association" in lower_text or "society" in lower_text or "member" in lower_text):
+        org_keywords = ["ORG", "association", "society", "member"]
+        if label.endswith("ORG") and any(k in lower_text for k in org_keywords):
             criteria["membership"].append(entity_text)
             
         # MISC with known media names or keywords
-        if ("press" in lower_text or "media" in lower_text or 
-            (label.endswith("MISC") and any(media in entity_text for media in ["CNN", "BBC", "Reuters"]))):
+        press_keywords = ["press", "media", "interview", "coverage"]
+        if any(k in lower_text for k in press_keywords):
             criteria["press"].append(entity_text)
             
-        # "judge" or "panel"
-        if "judge" in lower_text or "panel" in lower_text:
+        # Judging: look for judge, panel, reviewer, adjudicator, evaluator
+        judging_keywords = ["judge", "panel", "reviewer", "adjudicator", "evaluator"]
+        if any(k in lower_text for k in judging_keywords):
             criteria["judging"].append(entity_text)
-            
-        # imply innovation
-        if "contribution" in lower_text or "innovation" in lower_text or "developed" in lower_text:
+
+        # Original contribution: contribution, innovation, developed, invention, breakthrough, discovery
+        contribution_keywords = [
+            "contribution", "innovation", "developed", "invention", "breakthrough", "discovery"
+        ]
+        if any(k in lower_text for k in contribution_keywords):
             criteria["original contribution"].append(entity_text)
-            
-        # using keywords often found in academic publications
-        if "article" in lower_text or "journal" in lower_text or "publication" in lower_text:
+
+        # Scholarly articles: article, journal, publication, paper, manuscript, proceedings
+        scholarly_keywords = [
+            "article", "journal", "publication", "paper", "manuscript", "proceedings"
+        ]
+        if any(k in lower_text for k in scholarly_keywords):
             criteria["scholarly articles"].append(entity_text)
-            
-        # if the entity is ORG, suggests high-level roles or companies
-        if label.endswith("ORG") and ("inc" in lower_text or "llc" in lower_text or 
-                                        "corporation" in lower_text or "executive" in lower_text or "director" in lower_text):
+
+        # Critical employment: look for orgs with high-level roles or company suffixes
+        critical_roles = [
+            "executive", "director", "chief", "president", "founder", "ceo", "cto", "cfo", "lead"
+        ]
+        company_suffixes = ["inc", "llc", "corporation", "corp", "ltd", "company", "plc"]
+        if label.endswith("ORG") and (
+            any(role in lower_text for role in critical_roles) or
+            any(suffix in lower_text for suffix in company_suffixes)
+        ):
             criteria["critical employment"].append(entity_text)
-            
-        # using salary or compensation related keywords
-        if "salary" in lower_text or "compensation" in lower_text or "remuneration" in lower_text:
+
+        # High remuneration: salary, compensation, remuneration, income, earnings, wage, stipend, pay
+        remuneration_keywords = [
+            "salary", "compensation", "remuneration", "income", "earnings", "wage", "stipend", "pay"
+        ]
+        if any(k in lower_text for k in remuneration_keywords):
             criteria["high remuneration"].append(entity_text)
             
     return criteria
