@@ -64,4 +64,6 @@ trainer = Trainer(
     tokenizer=tokenizer,
 )
 
-trainer.train()
+if __name__ == "__main__":
+    trainer.train()
+    trainer.save_model("models/visa-ner")
