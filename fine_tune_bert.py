@@ -11,7 +11,7 @@ model = AutoModelForTokenClassification.from_pretrained(MODEL_NAME)
 # from huggingface
 def load_custom_dataset(csv_file):
     df = pd.read_csv(csv_file)
-    df["labels"] = df["labels"].apply(ast.literal_eval)
+    df["labels"] = df["labels"].apply(ast.literal_eval) # in case of stringified lists
     df["text"] = df["text"].apply(lambda x: x.split())
     return Dataset.from_pandas(df)
 
@@ -32,9 +32,9 @@ def tokenize_and_align_labels(examples):
             if word_idx is None:
                 aligned_labels.append(-100)  # ignore
             elif word_idx != previous_word_idx:
-                aligned_labels.append(label[word_idx])
+                aligned_labels.append(int(label[word_idx]))
             else:
-                aligned_labels.append(label[word_idx])
+                aligned_labels.append(int(label[word_idx]))
             previous_word_idx = word_idx
         labels.append(aligned_labels)
     tokenized_inputs["labels"] = labels
