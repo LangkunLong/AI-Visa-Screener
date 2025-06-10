@@ -48,37 +48,37 @@ def bert_entities_to_criteria(entities: list) -> dict:
         
         # potential award mentions
         if label.endswith("MISC") or "award" in lower_text or "prize" in lower_text:
-            criteria["Awards"].append(entity_text)
+            criteria["awards"].append(entity_text)
             
         # if the entity is ORG include common membership indicators
         if label.endswith("ORG") and ("association" in lower_text or "society" in lower_text or "member" in lower_text):
-            criteria["Membership"].append(entity_text)
+            criteria["membership"].append(entity_text)
             
         # MISC with known media names or keywords
         if ("press" in lower_text or "media" in lower_text or 
             (label.endswith("MISC") and any(media in entity_text for media in ["CNN", "BBC", "Reuters"]))):
-            criteria["Press"].append(entity_text)
+            criteria["press"].append(entity_text)
             
         # "judge" or "panel"
         if "judge" in lower_text or "panel" in lower_text:
-            criteria["Judging"].append(entity_text)
+            criteria["judging"].append(entity_text)
             
         # imply innovation
         if "contribution" in lower_text or "innovation" in lower_text or "developed" in lower_text:
-            criteria["Original contribution"].append(entity_text)
+            criteria["original contribution"].append(entity_text)
             
         # using keywords often found in academic publications
         if "article" in lower_text or "journal" in lower_text or "publication" in lower_text:
-            criteria["Scholarly articles"].append(entity_text)
+            criteria["scholarly articles"].append(entity_text)
             
         # if the entity is ORG, suggests high-level roles or companies
         if label.endswith("ORG") and ("inc" in lower_text or "llc" in lower_text or 
                                         "corporation" in lower_text or "executive" in lower_text or "director" in lower_text):
-            criteria["Critical employment"].append(entity_text)
+            criteria["critical employment"].append(entity_text)
             
         # using salary or compensation related keywords
         if "salary" in lower_text or "compensation" in lower_text or "remuneration" in lower_text:
-            criteria["High remuneration"].append(entity_text)
+            criteria["high remuneration"].append(entity_text)
             
     return criteria
 
