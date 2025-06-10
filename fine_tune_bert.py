@@ -18,7 +18,7 @@ def load_custom_dataset(csv_file):
 # training, validation, testing datasets
 train_dataset = load_custom_dataset("train_data.csv")
 val_dataset = load_custom_dataset("val_data.csv")
-test_dataset = load_custom_dataset("val_data.csv")
+test_dataset = load_custom_dataset("test_data.csv")
 
 
 def tokenize_and_align_labels(examples):
